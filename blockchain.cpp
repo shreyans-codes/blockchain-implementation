@@ -91,7 +91,7 @@ int main()
 {
     vector<Transaction> tr;
     Transaction t1;
-    string vals[] = {"001", "010", "Shreyans", "Riya", "Shreyans gave 10 flowers to Riya", "08-03-2023"};
+    string vals[] = {"001", "010", "Shreyans", "Rudransh", "Shreyans sent 10 bitcoins to Rudransh", "08-03-2023"};
     t1.setValues(vals);
     tr.push_back(t1);
     Block genesisBlock = Block(1, tr);
