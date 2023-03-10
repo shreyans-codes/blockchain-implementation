@@ -1,0 +1,22 @@
+Hash = 1564479978
+Enter 1 to add a new block
+Enter 0 to exit
+Your choice: Enter transaction details: 
+Enter 0 to stop: Enter sender id: Enter reciever id: Enter sender name: Enter reciever name: Enter description: Enter date: Enter 0 to stop: Enter sender id: Enter reciever id: Enter sender name: Enter reciever name: Enter description: Enter date: Enter 0 to stop: Enter 1 to add a new block
+Enter 0 to exit
+Your choice: Enter transaction details: 
+Enter 0 to stop: Enter sender id: Enter reciever id: Enter sender name: Enter reciever name: Enter description: Enter date: Enter 0 to stop: Enter 1 to add a new block
+Enter 0 to exit
+Your choice: Details for block 1 : 
+Transactions: 
+1 -> Shreyans sent 10 bitcoins to Rudransh
+Hash Value: 1564479978
+Details for block 2 : 
+Transactions: 
+1 -> Shreyans sent 22 XRP to Riya
+2 -> Riya transferred 10 ETH to Rudransh
+Hash Value: -781517718
+Details for block 3 : 
+Transactions: 
+1 -> Narendra sent 10 BTC to Dhriti
+Hash Value: -75290826

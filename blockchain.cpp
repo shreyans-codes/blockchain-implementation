@@ -71,20 +71,19 @@ public:
     vector<Transaction> transactions;
     void setTransactionValues()
     {
-        int ch = 1;
-        while (ch != 0)
+        int ch;
+        cout << "Enter transaction details: \n";
+        do
         {
             cout << "Enter 0 to stop: ";
             cin >> ch;
-            if (ch == 0)
-                continue;
-            else
+            if (ch != 0)
             {
                 Transaction temp = Transaction();
                 temp.setValuesFromUser();
                 transactions.push_back(temp);
             }
-        }
+        } while (ch != 0);
     }
     void setBlockHash(int pHash, int tHash)
     {
@@ -120,8 +119,48 @@ public:
     }
 };
 
+void buildBlockList(BlockNode *head)
+{
+    int choice;
+    BlockNode *temp = head;
+    do
+    {
+        cout << "Enter 1 to add a new block\nEnter 0 to exit\nYour choice: ";
+        cin >> choice;
+        if (choice == 1)
+        {
+            Block newBlock = Block(temp->block.blockHash);
+            BlockNode *nextBlock = new BlockNode(newBlock);
+            temp->next = nextBlock;
+            temp = temp->next;
+        }
+    } while (choice != 0);
+}
+
+void printBlockList(BlockNode *head)
+{
+    BlockNode *temp = head;
+    int i = 1;
+    while (temp != NULL)
+    {
+        cout << "Details for block " << i << " : " << endl;
+        cout << "Transactions: " << endl;
+        for (int j = 0; j < temp->block.transactions.size(); j++)
+        {
+            cout << j + 1 << " -> " << temp->block.transactions[j].description << endl;
+        }
+        cout << "Hash Value: " << temp->block.blockHash << endl;
+        temp = temp->next;
+        i++;
+    }
+}
+
 int main()
 {
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
     vector<Transaction> tr;
     Transaction t1;
     string vals[] = {"001", "010", "Shreyans", "Rudransh", "Shreyans sent 10 bitcoins to Rudransh", "08-03-2023"};
@@ -129,9 +168,8 @@ int main()
     tr.push_back(t1);
     Block genesisBlock = Block(1, tr);
     cout << "Hash = " << genesisBlock.blockHash << endl;
-    BlockNode genesisBlockNode(genesisBlock);
-    Block newBlock = Block(genesisBlock.blockHash);
-    BlockNode *newNode = new BlockNode(newBlock);
-    genesisBlockNode.next = newNode;
-    cout << "New Nodes Hash = " << newBlock.blockHash << endl;
+    BlockNode genesisBlockNode = BlockNode(genesisBlock);
+    BlockNode *headNode = &genesisBlockNode;
+    buildBlockList(headNode);
+    printBlockList(headNode);
 }
