@@ -22,14 +22,20 @@ public:
         description = vals[4];
         transactionDate = vals[5];
     }
-    string *getValues()
+    void setValuesFromUser()
     {
-        string details[4];
-        details[0] = senderName;
-        details[1] = recieverName;
-        details[2] = description;
-        details[3] = transactionDate;
-        return details;
+        cout << "Enter sender id: ";
+        getline(cin, senderId);
+        cout << "Enter reciever id: ";
+        getline(cin, recieverId);
+        cout << "Enter sender name: ";
+        getline(cin, senderName);
+        cout << "Enter reciever name: ";
+        getline(cin, recieverName);
+        cout << "Enter description: ";
+        getline(cin, description);
+        cout << "Enter date: ";
+        getline(cin, transactionDate);
     }
     int getHash()
     {
@@ -63,14 +69,41 @@ private:
 public:
     int blockHash;
     vector<Transaction> transactions;
+    void setTransactionValues()
+    {
+        int ch = 1;
+        while (ch != 0)
+        {
+            cout << "Enter 0 to stop: ";
+            cin >> ch;
+            if (ch == 0)
+                continue;
+            else
+            {
+                Transaction temp = Transaction();
+                temp.setValuesFromUser();
+                transactions.push_back(temp);
+            }
+        }
+    }
+    void setBlockHash(int pHash, int tHash)
+    {
+        hash<string> cHash;
+        blockHash = cHash(to_string(pHash + tHash));
+    }
     Block(int pHash, vector<Transaction> tr)
     {
         previousHash = pHash;
         transactions = tr;
         int transactionHash = generateTransactionHash();
-        hash<string> cHash;
-        cout << "Transaction Hash = " << transactionHash << endl;
-        blockHash = cHash(to_string(previousHash + transactionHash));
+        setBlockHash(previousHash, transactionHash);
+    }
+    Block(int pHash)
+    {
+        previousHash = pHash;
+        setTransactionValues();
+        int transactionHash = generateTransactionHash();
+        setBlockHash(previousHash, transactionHash);
     }
     Block() {}
 };
@@ -97,4 +130,8 @@ int main()
     Block genesisBlock = Block(1, tr);
     cout << "Hash = " << genesisBlock.blockHash << endl;
     BlockNode genesisBlockNode(genesisBlock);
+    Block newBlock = Block(genesisBlock.blockHash);
+    BlockNode *newNode = new BlockNode(newBlock);
+    genesisBlockNode.next = newNode;
+    cout << "New Nodes Hash = " << newBlock.blockHash << endl;
 }

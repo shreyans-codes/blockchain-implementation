@@ -1,1 +1,3 @@
-1. Build genesis block
+1. Build genesis block [Done]
+2. Use getline for setValuesFromUser() function [Done]
+3. Build a linked list
