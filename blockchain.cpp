@@ -90,6 +90,10 @@ public:
         hash<string> cHash;
         blockHash = cHash(to_string(pHash + tHash));
     }
+    int getPreviousHash()
+    {
+        return previousHash;
+    }
     Block(int pHash, vector<Transaction> tr)
     {
         previousHash = pHash;
@@ -155,6 +159,25 @@ void printBlockList(BlockNode *head)
     }
 }
 
+bool verifyBlockChain(BlockNode *head)
+{
+    bool isValid = true;
+    while (head->next != NULL)
+    {
+        if (head->block.blockHash == head->next->block.getPreviousHash())
+        {
+            head = head->next;
+            continue;
+        }
+        else
+        {
+            isValid = false;
+            break;
+        }
+    }
+    return isValid;
+}
+
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -168,8 +191,13 @@ int main()
     tr.push_back(t1);
     Block genesisBlock = Block(1, tr);
     cout << "Hash = " << genesisBlock.blockHash << endl;
-    BlockNode genesisBlockNode = BlockNode(genesisBlock);
-    BlockNode *headNode = &genesisBlockNode;
-    buildBlockList(headNode);
-    printBlockList(headNode);
+    BlockNode *genesisBlockNode = new BlockNode(genesisBlock);
+    buildBlockList(genesisBlockNode);
+    cout << endl
+         << endl
+         << "Printing Details..."
+         << endl
+         << endl;
+    printBlockList(genesisBlockNode);
+    cout << verifyBlockChain(genesisBlockNode) << endl;
 }

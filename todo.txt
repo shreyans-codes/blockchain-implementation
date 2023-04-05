@@ -1,3 +1,6 @@
 1. Build genesis block [Done]
 2. Use getline for setValuesFromUser() function [Done]
 3. Build a linked list [Done]
+4. Write tests to check validity of blocks [Done]
+5. Write tests to check whether valid input is given
+6. Check transactions using Merkle Proof (You already came up with it yourself, proud of ya boy!)
